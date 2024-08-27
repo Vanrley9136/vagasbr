@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vagas Anunciadas</title>
+    
+    <!-- Fonte Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    
+    <!-- Estilos CSS -->
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap');
+        /* Resets e configurações básicas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Red Hat Display", sans-serif;
+            background-color: #f8f9fc;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* Estilo do Header */
+        header {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1000;
+        }
+     
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f78ff;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        nav ul li {
+            font-size: 16px;
+            font-weight: 500;
+            padding: 5px 15px;
+            border-radius: 8px;
+        }
+        
+        nav ul li.active,
+        nav ul li:hover {
+            background-color: #e3f2fd;
+            color: #1f78ff;
+        }
+        
+        /* Menu Hamburguer Mobile */
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 250px;
+            height: 100%;
+            background-color: #ffffff;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            padding: 60px 20px;
+            transition: all 0.3s ease;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .mobile-menu.active {
+            left: 0;
+        }
+        
+        .mobile-menu ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .mobile-menu ul li {
+            font-size: 18px;
+            font-weight: 500;
+        }
+        
+        /* Área Principal */
+        main {
+            flex: 1;
+            padding: 40px 20px;
+        }
+        
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .search-bar input {
+            flex: 1;
+            padding: 12px 20px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            font-size: 16px;
+            background-color: #f1f3f5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .search-bar button {
+            padding: 12px;
+            background-color: #f1f3f5;
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .search-bar button:hover {
+            background-color: #e0e7ea;
+        }
+
+        /* Título "Vagas Anunciadas" */
+        .vagas-title {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+            font-size: 24px;
+            color: #333;
+        }
+        
+    /* Limitar a largura do container em telas grandes */
+.container {
+    max-width: 900px; /* Ajuste este valor conforme necessário */
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Garantir que os cartões de vaga também não ultrapassem a largura máxima */
+.job-listings {
+    max-width: 900px; /* Mesmo valor do container */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+        
+        .job-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s ease;
+            flex-direction: column;
+        }
+        
+        .job-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .job-card-left {
+            width: 100%;
+        }
+
+        .job-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .job-status {
+            color: #ff5252;
+            font-weight: 600;
+        }
+        
+        .job-details {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            color: #666;
+            flex-wrap: wrap;
+        }
+        
+        .job-details div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .company-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            width: 100%;
+            padding-top: 15px;
+            border-top: 1px solid #ececec;
+        }
+
+        .company-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .company-text {
+            flex: 1;
+            margin-left: 15px;
+        }
+
+        .company-text p {
+            font-size: 14px;
+            color: #888;
+        }
+        
+.details-btn {
+    margin-top: 20px;
+    padding: 12px 20px;
+    display: inline-flex;
+    appearance: none;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    position: relative;
+    white-space: nowrap;
+    vertical-align: middle;
+    outline: transparent solid 2px;
+    outline-offset: 2px;
+    line-height: 1.2;
+    border-radius: 6px;
+    font-weight: var(--chakra-fontWeights-bold);
+    transition-property: var(--chakra-transition-property-common);
+    transition-duration: var(--chakra-transition-duration-normal);
+    height: 48px;
+    min-width: var(--chakra-sizes-10);
+    font-size: var(--chakra-fontSizes-md);
+    padding-inline: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-width: 1px;
+    border-style: solid;
+    border-image: initial;
+    border-color: var(--chakra-colors-gray-300);
+    color: var(--chakra-colors-gray-500);
+}
+        /* Footer */
+        footer {
+            background-color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+        }
+        
+        footer p {
+            font-size: 14px;
+            color: #777;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .job-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .job-card-top {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .job-details {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">Vagas</div>
+            <nav>
+                <ul>
+                    <li>Início</li>
+                    <li>Meu Perfil</li>
+                    <li class="active">Vagas</li>
+                </ul>
+                <div class="menu-toggle" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="mobile-menu" id="mobileMenu">
+                    <ul>
+                        <li>Início</li>
+                        <li>Meu Perfil</li>
+                        <li class="active">Vagas</li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Main -->
+    <main>
+        <div class="search-bar">
+            <input type="text" placeholder="Buscar vagas...">
+            <button><i class="fas fa-filter"></i></button>
+        </div>
+        <h2 class="vagas-title">Vagas anunciadas</h2>
+        <div class="job-listings">
+            <!-- Card 1 -->
+            <div class="job-card">
+                <div class="job-card-left">
+                    <div class="job-card-top">
+                        <h3>Programador Full Stack PHP</h3>
+                        <span class="job-status">Fechada</span>
+                    </div>
+                    <div class="job-details">
+                        <div><i class="fas fa-map-marker-alt"></i> Florianópolis, SC</div>
+                        <div><i class="fas fa-briefcase"></i> Híbrido</div>
+                        <div><i class="fas fa-clock"></i> Tempo integral</div>
+                        <div><i class="fas fa-user"></i> 1 possível candidato</div>
+                        <div><i class="fas fa-envelope"></i> 12 candidaturas</div>
+                    </div>
+                    <div class="company-info">
+                        <img src="https://i.postimg.cc/qM7jhtJW/generated-image-1724785492751.jpg/50" alt="Logo da Empresa">
+                        <div class="company-text">
+                            <p>Vertex Systems and Software</p>
+                            <p>Publicado há 1 ano</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="details-btn">Ver detalhes da vaga</a>
+            </div>
+            <!-- Card 2 -->
+            <div class="job-card">
+                <div class="job-card-left">
+                    <div class="job-card-top">
+                        <h3>Programador Full Stack NodeJs</h3>
+                        <span class="job-status">Fechada</span>
+                    </div>
+                    <div class="job-details">
+                        <div><i class="fas fa-map-marker-alt"></i> Florianópolis, SC</div>
+                        <div><i class="fas fa-briefcase"></i> Híbrido</div>
+                        <div><i class="fas fa-clock"></i> Tempo integral</div>
+                        <div><i class="fas fa-user"></i> 1 possível candidato</div>
+                        <div><i class="fas fa-envelope"></i> 13 candidaturas</div>
+                    </div>
+                    <div class="company-info">
+                        <img src="https://i.postimg.cc/qM7jhtJW/generated-image-1724785492751.jpg/50" alt="Logo da Empresa">
+                        <div class="company-text">
+                            <p>Vertex Systems and Software</p>
+                            <p>Publicado há 1 ano</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="details-btn">Ver detalhes da vaga</a>
+            </div>
+            <!-- Adicione mais cartões conforme necessário -->
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Vagas de Emprego. Todos os direitos reservados.</p>
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+    </script>
+</body>
+
+</html>
